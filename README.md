@@ -26,13 +26,13 @@ It prints the input number, in hexadecimal.
 `printhex(cell, lowercase);`
 
 `printhex(u16, lowercase);`
-### printbin
+### `printbin`
 Prints the input number in binary.
 ### Usage
 `printbin(cell);`
 
 `printbin(u16);`
-### printoct
+### `printoct`
 > This function is broken, you can submit a pull request to fix it.
 
 Prints the input number in octal.
