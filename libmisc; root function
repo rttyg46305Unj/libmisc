@@ -1,0 +1,14 @@
+#include <libmisc>
+
+cell t = 2;
+cell i = 1;
+cell o = 0;
+
+
+drain 255 into i{
+  root(t, i, o);
+  print(o);
+  output " is the floored cube root of ";
+  print(i);
+  output '\n';
+}

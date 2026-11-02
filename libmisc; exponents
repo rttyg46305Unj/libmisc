@@ -1,0 +1,11 @@
+#include <libmisc>
+
+cell n = 2;
+cell e = 0;
+cell o;
+
+drain 8 into e{
+pow(n, e, o);
+print(o);
+output ' ';
+}

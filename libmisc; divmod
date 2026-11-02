@@ -1,0 +1,13 @@
+#include <libmisc>
+
+cell n = 67;
+cell d = 3;
+cell m;
+cell div;
+
+divmod(n, d, m, div);
+print(n);
+output '/';
+print(d);
+output '=';
+print(div);

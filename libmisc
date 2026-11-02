@@ -1,16 +1,20 @@
 // Imports u16, which imports i8 which imports u8 and bitops
 #include <u16>
 
+// VARIABLES
+
 cell cellwidth = 0;
 cell zero = 1;
 cell binary = 2;
 cell octal = 8;
-cell hex = 16;
+// cell hex = 16;
 cell hexadecimal = 16;
 while zero{
   cellwidth += 1;
   zero += zero;
 }
+
+// RANDOM
 
 fn random(cell t, cell j){
   cell u;
@@ -29,6 +33,8 @@ fn random(struct u16 s){
   random(s.n0, s.n1);
 }
 
+// COMPATIBILITY
+
 fn div_10(cell self) {
   cell quotient;
   cell dividing = 1;
@@ -46,6 +52,8 @@ fn div_10(cell self) {
   }
   self = quotient;
 }
+
+// PRINTING
 
 fn printhex(cell n, cell lower){
   cell idkwhat = 7;
@@ -85,6 +93,7 @@ fn printhex(struct u16 n){
   printhex(n, zero)
 }
 
+
 fn printoct(cell n, cell tdlb){
   cell two = 2;
   cell six = 6;
@@ -104,7 +113,6 @@ fn printoct(cell n, cell tdlb){
 }
 
 fn printoct(cell n){
-  cell zero = 0;
   printoct(n, zero)
 }
 
@@ -113,6 +121,7 @@ fn printoct(struct u16 n){
   set(copy1, n);
   printoct(n.n0, zero);
 }
+
 
 fn printbin(cell n){
   debug(n);
@@ -123,22 +132,174 @@ fn printbin(struct u16 n){
   debug(n.n0);
 }
 
+
 fn printheader(cell base){
   output 48;
   cell inequalities = 3;
-  if not base - 2 {
+  if not base - binary {
     inequalities-=1;
     output 'b';
   }
-  if not base - 8 {
+  if not base - octal {
     inequalities-=1;
     output 'o';
   }
-  if not base - 16 {
+  if not base - hexadecimal {
     inequalities-=1;
     output 'x';
   }
   if not inequalities - 3 {
     output '?';
   }
+}
+
+// BOOLEAN
+
+fn and(cell a, cell b, cell out){
+  cell a1 = a;
+  cell b1 = b;
+  out = 0;
+  if a1 {out+=1;}
+  if b1 {out+=1;}
+  if not out - 2 {out = 1;} else {out = 0;}
+}
+
+fn xor(cell a, cell b, cell out){
+  cell a1 = a;
+  cell b1 = b;
+  out = 0;
+  if a1 {out+=1;}
+  if b1 {out+=1;}
+  if not out - 1 {out = 1;} else {out = 0;}
+}
+
+fn or(cell a, cell b, cell out){
+  cell a1 = a;
+  cell b1 = b;
+  out = 0;
+  if a1 {out=1;}
+  if b1 {out=1;}
+}
+
+fn less(cell a, cell b, cell out){
+  cell andout;
+  cell a1 = a;
+  cell b1 = b;
+  out = 1;
+  and(a1, b1, andout);
+  while andout{
+    a1-=1;
+    b1-=1;
+    and(a1, b1, andout);
+  }
+  if a1 {out = 0;}
+  and(b1, out, out);
+}
+
+fn lessequal(cell a, cell b, cell out){
+  cell andout;
+  cell a1 = a;
+  cell b1 = b;
+  out = 1;
+  and(a1, b1, andout);
+  while andout{
+    a1-=1;
+    b1-=1;
+    and(a1, b1, andout);
+  }
+  if a1 {out = 0;}
+}
+
+fn greater(cell a, cell b, cell out){
+  cell andout;
+  cell a1 = a;
+  cell b1 = b;
+  out = 1;
+  and(a1, b1, andout);
+  while andout{
+    a1-=1;
+    b1-=1;
+    and(a1, b1, andout);
+  }
+  if b1 {out = 0;}
+  and(a1, out, out);
+}
+
+fn greaterequal(cell a, cell b, cell out){
+  cell andout;
+  cell a1 = a;
+  cell b1 = b;
+  out = 1;
+  and(a1, b1, andout);
+  while andout{
+    a1-=1;
+    b1-=1;
+    and(a1, b1, andout);
+  }
+  if b1 {out = 0;}
+}
+
+// MATH
+
+fn mult(cell a, cell b, cell out){
+  cell a1 = a;
+  out = 0;
+  drain a1{
+    out += b;
+  }
+}
+
+fn divmod(cell n, cell divisor, cell mod, cell div){
+  cell[6] cells;
+  cell nodiv;
+  lessequal(divisor, binary, nodiv);
+  if not nodiv{
+    cells[0] = n;
+    cells[1] = divisor;
+    bf @cells[0]{ // divmod alogrithm
+      [->-[>+>>]>[+[-<+>]>+>>]<<<<<]
+    }
+    div = cells[3];
+    mod = cells[2];
+  }
+  else{
+    div = n;
+    mod = 0;
+  }
+}
+
+fn pow(cell n, cell exponent, cell out){
+  out = 1;
+  cell exponent1 = exponent;
+  drain exponent1 {
+    mult(out, n, out);
+  }
+}
+
+fn log(cell base, cell n, cell out){
+  out = 1;
+  cell powout = 0;
+  cell leout = 0;
+  pow(base, out, powout);
+  lessequal(powout, n, leout);
+  while leout{
+    out+=1;
+    pow(base, out, powout);
+    lessequal(powout, n, leout);
+  }
+  out-=1;
+}
+
+fn root(cell base, cell n, cell out){
+  out = 1;
+  cell powout = 0;
+  cell leout = 0;
+  pow(out, base, powout);
+  lessequal(powout, n, leout);
+  while leout{
+    out+=1;
+    pow(out, base, powout);
+    lessequal(powout, n, leout);
+  }
+  out-=1;
 }
