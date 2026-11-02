@@ -1,5 +1,6 @@
 # libmisc
 Miscellaneous library for [Mastermind](https://mastermind.lostpixels.org/) that adds... miscellaneous stuff.
+This repository comes with `u16`, `u8`, `i8`, and `bitops`, which are included in the Mastermind IDE by default. They are required to make libmisc function correctly.
 ## Functions
 ### `random`
 The `random` function takes in either 2 cells or 1 `u16`, and using said value(s), replaces it with a pseudo-random number.
