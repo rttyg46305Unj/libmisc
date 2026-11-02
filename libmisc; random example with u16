@@ -1,0 +1,9 @@
+#include <libmisc>
+
+struct u16 j;
+
+drain 255{
+print(j);
+random(j);
+output '\n';
+}

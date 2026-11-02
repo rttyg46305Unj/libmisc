@@ -1,0 +1,11 @@
+#include <libmisc>
+
+cell t;
+cell j;
+drain 255{
+print(t);
+output ' ';
+print(j);
+output "; ";
+random(t,j);
+}

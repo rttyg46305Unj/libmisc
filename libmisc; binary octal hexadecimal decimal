@@ -1,0 +1,14 @@
+#include <libmisc>
+
+cell j = 123;
+
+printheader(binary);
+printbin(j);
+output '\n';
+printheader(octal);
+printoct(j); // broken, please fix
+output '\n';
+printheader(hexadecimal);
+printhex(j);
+output '\n';
+print(j);

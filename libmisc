@@ -1,0 +1,144 @@
+// Imports u16, which imports i8 which imports u8 and bitops
+#include <u16>
+
+cell cellwidth = 0;
+cell zero = 1;
+cell binary = 2;
+cell octal = 8;
+cell hex = 16;
+cell hexadecimal = 16;
+while zero{
+  cellwidth += 1;
+  zero += zero;
+}
+
+fn random(cell t, cell j){
+  cell u;
+  cell f = 5;
+  t-=1;
+  u=t;
+  tshift_r(u,f);
+  wshift_l(j, u);
+  u=j;
+  tshift_r(u,f);
+  wshift_l(t, u);
+  j+=t;
+}
+
+fn random(struct u16 s){
+  random(s.n0, s.n1);
+}
+
+fn div_10(cell self) {
+  cell quotient;
+  cell dividing = 1;
+  while dividing {
+    drain 10 {
+      dividing = 0;
+      if self {
+        dividing = 1;
+        self-=1;
+      }
+    }
+    if dividing {
+      quotient+=1;
+    }
+  }
+  self = quotient;
+}
+
+fn printhex(cell n, cell lower){
+  cell idkwhat = 7;
+  if lower{
+    idkwhat += 32;
+  }
+  cell four = 4;
+  cell topn = n;
+  tshift_r(topn, four);
+  cell botn = n;
+  wshift_l(botn, four);
+  tshift_r(botn, four);
+  cell topnt = topn;
+  div_10(topnt);
+  cell topntv;
+  if topnt {topntv = idkwhat;}
+  output 48+topn+topntv;
+  cell botnt = botn;
+  div_10(botnt);
+  cell botntv;
+  if botnt {botntv = idkwhat;}
+  output 48+botn+botntv;
+}
+
+fn printhex(cell n){
+  cell zero;
+  printhex(n, zero)
+}
+
+fn printhex(struct u16 n, cell lower){
+  printhex(n.n1, lower);
+  printhex(n.n0, lower);
+}
+
+fn printhex(struct u16 n){
+  cell zero;
+  printhex(n, zero)
+}
+
+fn printoct(cell n, cell tdlb){
+  cell two = 2;
+  cell six = 6;
+  cell five = 5;
+  cell fdig = n;
+  tshift_r(fdig, six);
+  tshift_l(tdlb, two);
+  output 48+fdig+tdlb;
+  cell sdig = n;
+  tshift_l(sdig, two);
+  tshift_r(fdig, five);
+  output 48+sdig;
+  cell tdig = n;
+  tshift_l(sdig, five);
+  tshift_r(fdig, five);
+  output 48+tdig;
+}
+
+fn printoct(cell n){
+  cell zero = 0;
+  printoct(n, zero)
+}
+
+fn printoct(struct u16 n){
+  struct u16 copy1;
+  set(copy1, n);
+  printoct(n.n0, zero);
+}
+
+fn printbin(cell n){
+  debug(n);
+}
+
+fn printbin(struct u16 n){
+  debug(n.n1);
+  debug(n.n0);
+}
+
+fn printheader(cell base){
+  output 48;
+  cell inequalities = 3;
+  if not base - 2 {
+    inequalities-=1;
+    output 'b';
+  }
+  if not base - 8 {
+    inequalities-=1;
+    output 'o';
+  }
+  if not base - 16 {
+    inequalities-=1;
+    output 'x';
+  }
+  if not inequalities - 3 {
+    output '?';
+  }
+}

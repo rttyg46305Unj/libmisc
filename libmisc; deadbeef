@@ -1,0 +1,12 @@
+#include <libmisc>
+
+struct u16 d;
+struct u16 b;
+cell o = 1;
+d.n1=222;d.n0=173;b.n1=190;b.n0=239;
+
+printhex(d,o);
+output ' ';
+printhex(b,o);
+output '\n';
+debug(d.n1);

@@ -1,0 +1,11 @@
+#include <libmisc>
+cell jd;
+cell j;
+drain 255 into j{
+  jd=j;
+  div_10(jd);
+  print(jd);
+  output " = ";
+  print(j);
+  output '\n';
+}

@@ -1,0 +1,31 @@
+
+// This demo/example does:
+// Pseudo-random number generation
+// Printing numbers in decimal and hexadecimal
+//   Division by 10
+
+#include <libmisc>
+
+cell j;
+cell one = 1;
+cell st = 16;
+
+drain 255 into j{
+  printheader(st);
+  printhex(j, one);
+  output "   = ";
+  print(j);
+  output '\n';
+}
+
+struct u16 g;
+_65280(g);
+
+drain 32{
+  random(g);
+  printheader(st);
+  printhex(g);
+  output " = ";
+  print(g);
+  output '\n';
+}

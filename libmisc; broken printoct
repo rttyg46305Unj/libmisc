@@ -1,0 +1,6 @@
+#include <libmisc>
+
+struct u16 yaya;
+_1(yaya);
+
+printoct(yaya);
