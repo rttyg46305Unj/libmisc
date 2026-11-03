@@ -8,7 +8,7 @@ cell o = 0;
 drain 255 into i{
   root(t, i, o);
   print(o);
-  output " is the floored cube root of ";
+  output " is the floored square root of ";
   print(i);
   output '\n';
 }
