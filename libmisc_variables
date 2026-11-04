@@ -1,0 +1,10 @@
+cell cellwidth = 0;
+cell zero = 1;
+cell binary = 2;
+cell octal = 8;
+// cell hex = 16;
+cell hexadecimal = 16;
+while zero{
+  cellwidth += 1;
+  zero += zero;
+}

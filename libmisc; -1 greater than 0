@@ -1,0 +1,16 @@
+#include <libmisc>
+
+struct i8 a;
+dec(a); // turn it into -1
+struct i8 b;
+
+cell out;
+
+greater(a,b,out);
+
+if out{
+  output "yeah";
+}
+else {
+  output "nope nuh uh";
+}

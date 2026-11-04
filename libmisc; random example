@@ -1,11 +1,21 @@
 #include <libmisc>
 
+cell goopold = 1;
+cell goop = 1;
 cell t;
 cell j;
-drain 255{
-print(t);
-output ' ';
-print(j);
-output "; ";
-random(t,j);
+
+
+while goopold{
+if goop{
+  randomopt(t,j);
+  print(t);
+  output '\t';
+  print(j);
+  output '\n';
+}
+bf @goopold {[-]}
+drain goop into goopold;
+if t {goop+=1;}
+if j {goop+=1;}
 }

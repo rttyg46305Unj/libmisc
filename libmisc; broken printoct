@@ -1,6 +1,5 @@
 #include <libmisc>
 
-struct u16 yaya;
-_1(yaya);
+cell yaya = 1;
 
 printoct(yaya);

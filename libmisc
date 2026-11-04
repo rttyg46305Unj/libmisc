@@ -1,32 +1,26 @@
 // Imports u16, which imports i8 which imports u8 and bitops
 #include <u16>
 
-// VARIABLES
-
-cell cellwidth = 0;
-cell zero = 1;
-cell binary = 2;
-cell octal = 8;
-// cell hex = 16;
-cell hexadecimal = 16;
-while zero{
-  cellwidth += 1;
-  zero += zero;
-}
-
 // RANDOM
 
 fn random(cell t, cell j){
   cell u;
   cell f = 5;
-  t-=1;
   u=t;
+  t-=3;
   tshift_r(u,f);
   wshift_l(j, u);
   u=j;
+  j+=t;
   tshift_r(u,f);
   wshift_l(t, u);
+}
+
+fn randomopt(cell t, cell j){
+  t-=3;
+  wshift_l(j, t);
   j+=t;
+  wshift_l(t, j);
 }
 
 fn random(struct u16 s){
@@ -113,10 +107,12 @@ fn printoct(cell n, cell tdlb){
 }
 
 fn printoct(cell n){
+  cell zero;
   printoct(n, zero)
 }
 
-fn printoct(struct u16 n){
+fn printoct(struct u16 n){ // unfinished since printoct(cell n, cell tdlb) is broken
+  cell zero;
   struct u16 copy1;
   set(copy1, n);
   printoct(n.n0, zero);
@@ -136,15 +132,15 @@ fn printbin(struct u16 n){
 fn printheader(cell base){
   output 48;
   cell inequalities = 3;
-  if not base - binary {
+  if not base - 2 {
     inequalities-=1;
     output 'b';
   }
-  if not base - octal {
+  if not base - 8 {
     inequalities-=1;
     output 'o';
   }
-  if not base - hexadecimal {
+  if not base - 16 {
     inequalities-=1;
     output 'x';
   }
@@ -174,11 +170,9 @@ fn xor(cell a, cell b, cell out){
 }
 
 fn or(cell a, cell b, cell out){
-  cell a1 = a;
-  cell b1 = b;
   out = 0;
-  if a1 {out=1;}
-  if b1 {out=1;}
+  if a {out+=1;}
+  if b {out+=1;}
 }
 
 fn less(cell a, cell b, cell out){
@@ -239,6 +233,17 @@ fn greaterequal(cell a, cell b, cell out){
   if b1 {out = 0;}
 }
 
+// LOGICAL
+
+fn mux(cell a, cell x, cell y, cell out){
+  if a{
+    out = y;
+  }
+  else {
+    out = x;
+  }
+}
+
 // MATH
 
 fn mult(cell a, cell b, cell out){
@@ -250,9 +255,10 @@ fn mult(cell a, cell b, cell out){
 }
 
 fn divmod(cell n, cell divisor, cell mod, cell div){
+  cell two = 2;
   cell[6] cells;
   cell nodiv;
-  lessequal(divisor, binary, nodiv);
+  lessequal(divisor, two, nodiv);
   if not nodiv{
     cells[0] = n;
     cells[1] = divisor;
@@ -278,28 +284,52 @@ fn pow(cell n, cell exponent, cell out){
 
 fn log(cell base, cell n, cell out){
   out = 1;
-  cell powout = 0;
-  cell leout = 0;
+  cell powout;
   pow(base, out, powout);
-  lessequal(powout, n, leout);
-  while leout{
+  lessequal(powout, n, powout);
+  while powout{
     out+=1;
     pow(base, out, powout);
-    lessequal(powout, n, leout);
+    lessequal(powout, n, powout);
   }
   out-=1;
 }
 
 fn root(cell base, cell n, cell out){
   out = 1;
-  cell powout = 0;
-  cell leout = 0;
+  cell powout;
   pow(out, base, powout);
-  lessequal(powout, n, leout);
-  while leout{
+  lessequal(powout, n, powout);
+  while powout{
     out+=1;
     pow(out, base, powout);
-    lessequal(powout, n, leout);
+    lessequal(powout, n, powout);
   }
   out-=1;
+}
+
+// I8_LOGICAL
+
+fn less(struct i8 a, struct i8 b, cell out){
+  cell a1 = a.n + 128;
+  cell b1 = b.n + 128;
+  less(a1, b1, out);
+}
+
+fn lessequal(struct i8 a, struct i8 b, cell out){
+  cell a1 = a.n + 128;
+  cell b1 = b.n + 128;
+  lessequal(a1, b1, out);
+}
+
+fn greater(struct i8 a, struct i8 b, cell out){
+  cell a1 = a.n + 128;
+  cell b1 = b.n + 128;
+  greater(a1, b1, out);
+}
+
+fn greaterequal(struct i8 a, struct i8 b, cell out){
+  cell a1 = a.n + 128;
+  cell b1 = b.n + 128;
+  greaterequal(a1, b1, out);
 }

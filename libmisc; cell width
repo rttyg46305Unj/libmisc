@@ -1,2 +1,3 @@
 #include <libmisc>
+#include <libmisc_variables>
 print(cellwidth);
