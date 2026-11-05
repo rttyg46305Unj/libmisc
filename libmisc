@@ -1,7 +1,7 @@
 // Imports u16, which imports i8 which imports u8 and bitops
 #include <u16>
 
-// RANDOM
+// Random
 
 fn random(cell t, cell j){
   cell u;
@@ -27,7 +27,7 @@ fn random(struct u16 s){
   random(s.n0, s.n1);
 }
 
-// COMPATIBILITY
+// Compatibility
 
 fn div_10(cell self) {
   cell quotient;
@@ -47,7 +47,7 @@ fn div_10(cell self) {
   self = quotient;
 }
 
-// PRINTING
+// Printing
 
 fn printhex(cell n, cell lower){
   cell idkwhat = 7;
@@ -149,7 +149,7 @@ fn printheader(cell base){
   }
 }
 
-// BOOLEAN
+// Boolean
 
 fn and(cell a, cell b, cell out){
   cell a1 = a;
@@ -233,7 +233,7 @@ fn greaterequal(cell a, cell b, cell out){
   if b1 {out = 0;}
 }
 
-// LOGICAL
+// Logical
 
 fn mux(cell a, cell x, cell y, cell out){
   if a{
@@ -244,7 +244,7 @@ fn mux(cell a, cell x, cell y, cell out){
   }
 }
 
-// MATH
+// Math
 
 fn mult(cell a, cell b, cell out){
   cell a1 = a;
@@ -308,7 +308,7 @@ fn root(cell base, cell n, cell out){
   out-=1;
 }
 
-// I8_LOGICAL
+// i8_Logical
 
 fn less(struct i8 a, struct i8 b, cell out){
   cell a1 = a.n + 128;
